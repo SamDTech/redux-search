@@ -1,8 +1,9 @@
 import { Action } from "../actions";
 import axios from "axios";
 import { ActionType } from "../action-types";
+import { Dispatch } from "redux";
 
-const searchRepositories = (term: string) => async (dispatch: any) => {
+export const searchRepositories = (term: string) => async (dispatch: Dispatch<Action>) => {
   dispatch({ type: ActionType.SEARCH_REPOSITORY });
 
   try {
@@ -11,7 +12,7 @@ const searchRepositories = (term: string) => async (dispatch: any) => {
             text: term
         }
     });
-    const result = data.objects.map((result: any)=> result.package.name) 
+    const result = data.objects.map((result: any)=> result.package.name)
     dispatch({ type: ActionType.SEARCH_SUCCESS_REPOSITORY, payload: result });
   } catch (error) {
     dispatch({
